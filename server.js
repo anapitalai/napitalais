@@ -16,16 +16,14 @@ const Category = require("./models/Category.model");
 const Borrow = require("./models/Borrow.model");
 const Registry = require("./models/Registry.model");
 
- const adminNavigation = {
-  name: 'Admin',
-  icon: 'Restriction',
-}
+const adminNavigation = {
+  name: "Admin",
+  icon: "Restriction",
+};
 const restrictedNavigation = {
-  name: 'Restricted',
-  icon: 'Accessibility',
-}
-
-
+  name: "Restricted",
+  icon: "Accessibility",
+};
 
 // We have to tell AdminBro that we will manage mongoose resources with it
 AdminBro.registerAdapter(require("@admin-bro/mongoose"));
@@ -50,15 +48,17 @@ const adminBro = new AdminBro({
     companyName: "Napitalais",
     logo: "",
   },
-  theme:{color:{
-    primary:'red',
-    bck:'maroon'
-}},
+  theme: {
+    color: {
+      primary: "red",
+      bck: "maroon",
+    },
+  },
   resources: [
     {
       resource: Asset,
       options: {
-        navigation:restrictedNavigation,
+        navigation: restrictedNavigation,
         properties: {
           ownerId: {
             isVisible: { edit: false, show: true, list: true, filter: true },
@@ -68,12 +68,12 @@ const adminBro = new AdminBro({
           },
           description: { type: "richtext" },
 
-          createdAt:{
-            isVisible:{edit: false, show: false, list: false, filter: true}
+          createdAt: {
+            isVisible: { edit: false, show: false, list: false, filter: true },
           },
-          updatedAt:{
-            isVisible:{edit: true, show: false, list: false, filter: true}
-          }
+          updatedAt: {
+            isVisible: { edit: true, show: false, list: false, filter: true },
+          },
         },
         actions: {
           edit: { isAccessible: canEditRecords },
@@ -93,9 +93,9 @@ const adminBro = new AdminBro({
     //category
     {
       resource: Category,
-      
+
       options: {
-        navigation:adminNavigation,
+        navigation: adminNavigation,
         properties: {
           ownerId: {
             isVisible: { edit: false, show: true, list: true, filter: true },
@@ -112,9 +112,9 @@ const adminBro = new AdminBro({
     },
     //brand
     {
-      resource: Brand, 
+      resource: Brand,
       options: {
-        navigation:adminNavigation,
+        navigation: adminNavigation,
         properties: {
           ownerId: {
             isVisible: { edit: false, show: true, list: true, filter: true },
@@ -134,7 +134,7 @@ const adminBro = new AdminBro({
     {
       resource: Staff,
       options: {
-        navigation:adminNavigation,
+        navigation: adminNavigation,
         properties: {
           ownerId: {
             isVisible: { edit: false, show: true, list: true, filter: true },
@@ -153,7 +153,7 @@ const adminBro = new AdminBro({
     {
       resource: Supplier,
       options: {
-        navigation:adminNavigation,
+        navigation: adminNavigation,
         properties: {
           ownerId: {
             isVisible: { edit: false, show: true, list: true, filter: true },
@@ -171,9 +171,9 @@ const adminBro = new AdminBro({
     //borrowed asset
     {
       resource: Borrow,
-     
+
       options: {
-        navigation:adminNavigation,
+        navigation: adminNavigation,
         properties: {
           ownerId: {
             isVisible: { edit: false, show: true, list: true, filter: true },
@@ -191,9 +191,9 @@ const adminBro = new AdminBro({
     //GE Registry
     {
       resource: Registry,
-      
+
       options: {
-        navigation:adminNavigation,
+        navigation: adminNavigation,
         properties: {
           ownerId: {
             isVisible: { edit: false, show: true, list: true, filter: true },
@@ -214,9 +214,9 @@ const adminBro = new AdminBro({
     //GE
     {
       resource: GE,
-      
+
       options: {
-        navigation:adminNavigation,
+        navigation: adminNavigation,
         properties: {
           ownerId: {
             isVisible: { edit: false, show: true, list: true, filter: true },
@@ -235,13 +235,12 @@ const adminBro = new AdminBro({
       },
     },
 
-
     //Donors
     {
       resource: Donor,
-      
+
       options: {
-        navigation:adminNavigation,
+        navigation: adminNavigation,
         properties: {
           encryptedPassword: { isVisible: false },
           createdAt: {
@@ -278,9 +277,9 @@ const adminBro = new AdminBro({
     //Rooms
     {
       resource: Room,
-      
+
       options: {
-        navigation:adminNavigation,
+        navigation: adminNavigation,
         properties: {
           encryptedPassword: { isVisible: false },
           ownerId: {
@@ -314,9 +313,9 @@ const adminBro = new AdminBro({
     //Users
     {
       resource: User,
-      
+
       options: {
-        navigation:adminNavigation,
+        navigation: adminNavigation,
         properties: {
           encryptedPassword: { isVisible: false },
           password: {
@@ -368,33 +367,33 @@ const router = AdminBroExpressjs.buildAuthenticatedRouter(adminBro, {
     }
     return false;
   },
-  cookiePassword: "some-secret-password-used-to-secure-cookie"
-}
-);
+  cookiePassword: "some-secret-password-used-to-secure-cookie",
+});
 
 //no auth
 //const router = AdminBroExpressjs.buildRouter(adminBro
-  //   , {
-  //   authenticate: async (email, password) => {
-  //     const user = await User.findOne({ email });
-  //     if (user) {
-  //       const matched = await bcrypt.compare(password, user.encryptedPassword);
-  //       if (matched) {
-  //         return user;
-  //       }
-  //     }
-  //     return false;
-  //   },
-  //   cookiePassword: "some-secret-password-used-to-secure-cookie"
-  // }
-  //);
+//   , {
+//   authenticate: async (email, password) => {
+//     const user = await User.findOne({ email });
+//     if (user) {
+//       const matched = await bcrypt.compare(password, user.encryptedPassword);
+//       if (matched) {
+//         return user;
+//       }
+//     }
+//     return false;
+//   },
+//   cookiePassword: "some-secret-password-used-to-secure-cookie"
+// }
+//);
 
 app.use(adminBro.options.rootPath, router);
-
+//
 // Running the server
 const run = async () => {
-  await mongoose.connect("mongodb://202.1.39.189/napitalai", {
-    useNewUrlParser: true
+  //await mongoose.connect("mongodb://202.1.39.189/napitalai", {
+  await mongoose.connect("mongodb://anapitalai:pw@ip1:27017,ip2:27017/napitalais?replicaSet=apecreplica", {
+    useNewUrlParser: true,
   });
   await app.listen(8082, () =>
     console.log(`Example app listening on port 8082!`)
