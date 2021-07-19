@@ -1,19 +1,18 @@
 const mongoose = require('mongoose');
 const  User = require('./User.model')
 
-const MemberSchema = mongoose.Schema({
-    first_name:{type: String,required:true},
-    // ownerId: {
-    //     type: mongoose.Types.ObjectId,
-    //     ref: "User",
-    //   },
-    surname: {type: String},
-    age:{type:Number},
+const CategorySchema = mongoose.Schema({
+   category:{type:String,required:true,unique:true},
+   description:String,
+  ownerId: {
+    type: mongoose.Types.ObjectId,
+    ref: "User",
+      },
     createdAt:Date,
     updatedAt:Date
 });
 
-MemberSchema.pre('save', function(next) {
+CategorySchema.pre('save', function(next) {
     // get the current date
     var currentDate = new Date();
     // change the updated_at field to current date
@@ -22,10 +21,9 @@ MemberSchema.pre('save', function(next) {
     // if created_at doesn't exist, add to that field
     if (!this.updatedAt)
     this.updatedAt = currentDate;
-
     next();
     });
     
 
 
-module.exports = mongoose.model('Member',MemberSchema);
+module.exports = mongoose.model('Land',CategorySchema);

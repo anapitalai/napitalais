@@ -5,16 +5,14 @@ const AdminBro = require("admin-bro");
 const AdminBroExpressjs = require("@admin-bro/express");
 const bcrypt = require("bcryptjs");
 const User = require("./models/User.model");
-const GE = require("./models/GE.model");
-const Asset = require("./models/Family.model");
-const Donor = require("./models/Donor.model");
-const Brand = require("./models/Brand.model");
-const Supplier = require("./models/Member.model");
-const Staff = require("./models/Staff.model");
-const Room = require("./models/Room.model");
-const Category = require("./models/Category.model");
-const Borrow = require("./models/Borrow.model");
-const Registry = require("./models/Registry.model");
+const GE = require("./models/Mother.model");
+const Immediate_family = require("./models/Immediate_family.model");
+const Spouse = require("./models/Spouse.model");
+const Membership_Id = require("./models/Membership_Id.model");
+
+const Land = require("./models/Land.model");
+
+const Registry = require("./models/Child.model");
 
 const adminNavigation = {
   name: "Admin",
@@ -56,7 +54,7 @@ const adminBro = new AdminBro({
   },
   resources: [
     {
-      resource: Asset,
+      resource: Immediate_family,
       options: {
         navigation: restrictedNavigation,
         properties: {
@@ -92,7 +90,7 @@ const adminBro = new AdminBro({
     },
     //category
     {
-      resource: Category,
+      resource: Land,
 
       options: {
         navigation: adminNavigation,
@@ -110,9 +108,9 @@ const adminBro = new AdminBro({
         },
       },
     },
-    //brand
+    //Spouse
     {
-      resource: Brand,
+      resource: Spouse,
       options: {
         navigation: adminNavigation,
         properties: {
@@ -130,9 +128,9 @@ const adminBro = new AdminBro({
       },
     },
 
-    //staff
+    //Membership ID
     {
-      resource: Staff,
+      resource: Membership_Id,
       options: {
         navigation: adminNavigation,
         properties: {
@@ -149,45 +147,7 @@ const adminBro = new AdminBro({
         },
       },
     },
-    //supplier
-    {
-      resource: Supplier,
-      options: {
-        navigation: adminNavigation,
-        properties: {
-          ownerId: {
-            isVisible: { edit: false, show: true, list: true, filter: true },
-          },
-        },
-
-        actions: {
-          edit: { isAccessible: canModifyUsers },
-          delete: { isAccessible: canModifyUsers },
-          new: { isAccessible: canModifyUsers },
-          bulkDelete: { isAccessible: canModifyUsers },
-        },
-      },
-    },
-    //borrowed asset
-    {
-      resource: Borrow,
-
-      options: {
-        navigation: adminNavigation,
-        properties: {
-          ownerId: {
-            isVisible: { edit: false, show: true, list: true, filter: true },
-          },
-        },
-
-        actions: {
-          edit: { isAccessible: canModifyUsers },
-          delete: { isAccessible: canModifyUsers },
-          new: { isAccessible: canModifyUsers },
-          bulkDelete: { isAccessible: canModifyUsers },
-        },
-      },
-    },
+  
     //GE Registry
     {
       resource: Registry,
@@ -236,80 +196,45 @@ const adminBro = new AdminBro({
     },
 
     //Donors
-    {
-      resource: Donor,
+    // {
+    //   resource: Donor,
 
-      options: {
-        navigation: adminNavigation,
-        properties: {
-          encryptedPassword: { isVisible: false },
-          createdAt: {
-            isVisible: { edit: false, show: false, list: false, filter: true },
-          },
-          ownerId: {
-            isVisible: { edit: false, show: true, list: true, filter: true },
-          },
-        },
-        actions: {
-          new: {
-            before: async (request) => {
-              if (request.payload.password) {
-                request.payload = {
-                  ...request.payload,
-                  encryptedPassword: await bcrypt.hash(
-                    request.payload.password,
-                    10
-                  ),
-                  password: undefined,
-                };
-              }
-              return request;
-            },
-          },
-          edit: { isAccessible: canModifyUsers },
-          delete: { isAccessible: canModifyUsers },
-          new: { isAccessible: canModifyUsers },
-          bulkDelete: { isAccessible: canModifyUsers },
-        },
-      },
-    },
+    //   options: {
+    //     navigation: adminNavigation,
+    //     properties: {
+    //       encryptedPassword: { isVisible: false },
+    //       createdAt: {
+    //         isVisible: { edit: false, show: false, list: false, filter: true },
+    //       },
+    //       ownerId: {
+    //         isVisible: { edit: false, show: true, list: true, filter: true },
+    //       },
+    //     },
+    //     actions: {
+    //       new: {
+    //         before: async (request) => {
+    //           if (request.payload.password) {
+    //             request.payload = {
+    //               ...request.payload,
+    //               encryptedPassword: await bcrypt.hash(
+    //                 request.payload.password,
+    //                 10
+    //               ),
+    //               password: undefined,
+    //             };
+    //           }
+    //           return request;
+    //         },
+    //       },
+    //       edit: { isAccessible: canModifyUsers },
+    //       delete: { isAccessible: canModifyUsers },
+    //       new: { isAccessible: canModifyUsers },
+    //       bulkDelete: { isAccessible: canModifyUsers },
+    //     },
+    //   },
+    // },
 
-    //Rooms
-    {
-      resource: Room,
-
-      options: {
-        navigation: adminNavigation,
-        properties: {
-          encryptedPassword: { isVisible: false },
-          ownerId: {
-            isVisible: { edit: false, show: true, list: true, filter: true },
-          },
-        },
-        actions: {
-          new: {
-            before: async (request) => {
-              if (request.payload.password) {
-                request.payload = {
-                  ...request.payload,
-                  encryptedPassword: await bcrypt.hash(
-                    request.payload.password,
-                    10
-                  ),
-                  password: undefined,
-                };
-              }
-              return request;
-            },
-          },
-          edit: { isAccessible: canModifyUsers },
-          delete: { isAccessible: canModifyUsers },
-          new: { isAccessible: canModifyUsers },
-          bulkDelete: { isAccessible: canModifyUsers },
-        },
-      },
-    },
-
+    
     //Users
     {
       resource: User,
@@ -391,8 +316,11 @@ app.use(adminBro.options.rootPath, router);
 //
 // Running the server
 const run = async () => {
-  //await mongoose.connect("mongodb://202.1.39.189/napitalai", {
-  await mongoose.connect("mongodb://anapitalai:pw@ip1:27017,ip2:27017/napitalais?replicaSet=apecreplica", {
+  //mongodb+srv://<username>:<password>@nictc.ok4ic.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+  await mongoose.connect("mongodb://202.1.39.189/napitalai", {
+  //await mongoose.connect("mongodb://napitalais:napitalais@nictc.ok4ic.mongodb.net/napitalais", {
+
+ // await mongoose.connect("mongodb://anapitalai:pw@ip1:27017,ip2:27017/napitalais?replicaSet=apecreplica", {
     useNewUrlParser: true,
   });
   await app.listen(8082, () =>

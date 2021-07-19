@@ -1,21 +1,24 @@
 const mongoose = require('mongoose');
-const Donor = require('./Donor.model');
-const Staff= require('./Staff.model')
-const Supplier = require('./Member.model')
+
+const Membership_id = require('./Membership_Id.model')
 const  User = require('./User.model')
-const  GE = require('./GE.model')
 
-const IdSchema = mongoose.Schema({
 
-  family_id: { type: Number,required: true },
+const ChildSchema = mongoose.Schema({
   name: { type: String,required: true },
+  age: { type: Number,required: true },
+  number_children: { type: String,required: true },
+  membership_id: {
+    type: mongoose.Types.ObjectId,
+    ref: 'Membership_Id',
+      },
   createdAt: Date,
   updatedAt: Date ,
   
 
 });
 
-IdSchema.pre('save', function(next) {
+ChildSchema.pre('save', function(next) {
     // get the current date
     var currentDate = new Date();
     // change the updated_at field to current date
@@ -29,4 +32,4 @@ IdSchema.pre('save', function(next) {
     
 
 
-module.exports = mongoose.model('Id',IdSchema);
+module.exports = mongoose.model('Child',ChildSchema);
