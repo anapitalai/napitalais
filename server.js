@@ -197,44 +197,6 @@ const adminBro = new AdminBro({
       },
     },
 
-    //Donors
-    // {
-    //   resource: Donor,
-
-    //   options: {
-    //     navigation: adminNavigation,
-    //     properties: {
-    //       encryptedPassword: { isVisible: false },
-    //       createdAt: {
-    //         isVisible: { edit: false, show: false, list: false, filter: true },
-    //       },
-    //       ownerId: {
-    //         isVisible: { edit: false, show: true, list: true, filter: true },
-    //       },
-    //     },
-    //     actions: {
-    //       new: {
-    //         before: async (request) => {
-    //           if (request.payload.password) {
-    //             request.payload = {
-    //               ...request.payload,
-    //               encryptedPassword: await bcrypt.hash(
-    //                 request.payload.password,
-    //                 10
-    //               ),
-    //               password: undefined,
-    //             };
-    //           }
-    //           return request;
-    //         },
-    //       },
-    //       edit: { isAccessible: canModifyUsers },
-    //       delete: { isAccessible: canModifyUsers },
-    //       new: { isAccessible: canModifyUsers },
-    //       bulkDelete: { isAccessible: canModifyUsers },
-    //     },
-    //   },
-    // },
 
     
     //Users
@@ -297,40 +259,20 @@ const router = AdminBroExpressjs.buildAuthenticatedRouter(adminBro, {
   cookiePassword: "some-secret-password-used-to-secure-cookie",
 });
 
-//no auth
-//const router = AdminBroExpressjs.buildRouter(adminBro
-//   , {
-//   authenticate: async (email, password) => {
-//     const user = await User.findOne({ email });
-//     if (user) {
-//       const matched = await bcrypt.compare(password, user.encryptedPassword);
-//       if (matched) {
-//         return user;
-//       }
-//     }
-//     return false;
-//   },
-//   cookiePassword: "some-secret-password-used-to-secure-cookie"
-// }
-//);
+
 
 app.use(adminBro.options.rootPath, router);
 //
 // Running the server
 const run = async () => {
-  //mongodb+srv://<username>:<password>@nictc.ok4ic.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
-  //await mongoose.connect("mongodb://202.1.39.189/napitalai", {
+
     await mongoose.connect(
       "mongodb://" + process.env.DB_HOST_LOCAL + "/" + process.env.DB_LOCAL,
       {
         useNewUrlParser: true,
       }
     );
-  //await mongoose.connect("mongodb://napitalais:napitalais@nictc.ok4ic.mongodb.net/napitalais", {
 
- // await mongoose.connect("mongodb://anapitalai:pw@ip1:27017,ip2:27017/napitalais?replicaSet=apecreplica", {
-    //useNewUrlParser: true,
-  //});
   await app.listen(8082, () =>
     console.log(`Example app listening on port 8082!`)
   );
