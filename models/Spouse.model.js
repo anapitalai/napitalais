@@ -3,10 +3,10 @@ const User = require('./User.model')
 const Membership_Id=require('./Membership_Id.model')
 
 const SpouseSchema = mongoose.Schema({
-  first_name: { type: Number, required: true, unique: true },
-  middle_name: { type: Number, required: true, unique: true },
-  last_name: { type: Number, required: true, unique: true },
-  origin: { type: String, required: true, unique: true },
+  first_name: { type: String, required: true, unique: true },
+  middle_name: { type: String, required: true, unique: false },
+  last_name: { type: String, required: true, unique: false },
+  origin: { type: String, required: true, unique: false },
   membership_id: {
     type: mongoose.Types.ObjectId,
     ref: 'Membership_Id',
