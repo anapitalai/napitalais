@@ -5,9 +5,11 @@ const  User = require('./User.model')
 
 
 const ChildSchema = mongoose.Schema({
-  name: { type: String,required: true },
+  first_name: { type: String, required: true, unique: true },
+  middle_name: { type: String, required: true, unique: false },
+  last_name: { type: String, required: true, unique: false },
   age: { type: Number,required: true },
-  number_children: { type: String,required: true },
+  number_children: { type: Number,required: false },
   ownerId: {
     type: mongoose.Types.ObjectId,
     ref: 'User',
