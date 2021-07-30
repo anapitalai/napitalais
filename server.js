@@ -14,6 +14,8 @@ const Land = require("./models/Land.model");
 
 const Child = require("./models/Child.model");
 
+require("dotenv").config();
+
 const adminNavigation = {
   name: "Admin",
   icon: "Restriction",
@@ -317,12 +319,18 @@ app.use(adminBro.options.rootPath, router);
 // Running the server
 const run = async () => {
   //mongodb+srv://<username>:<password>@nictc.ok4ic.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
-  await mongoose.connect("mongodb://202.1.39.189/napitalai", {
+  //await mongoose.connect("mongodb://202.1.39.189/napitalai", {
+    await mongoose.connect(
+      "mongodb://" + process.env.DB_HOST_LOCAL + "/" + process.env.DB_LOCAL,
+      {
+        useNewUrlParser: true,
+      }
+    );
   //await mongoose.connect("mongodb://napitalais:napitalais@nictc.ok4ic.mongodb.net/napitalais", {
 
  // await mongoose.connect("mongodb://anapitalai:pw@ip1:27017,ip2:27017/napitalais?replicaSet=apecreplica", {
-    useNewUrlParser: true,
-  });
+    //useNewUrlParser: true,
+  //});
   await app.listen(8082, () =>
     console.log(`Example app listening on port 8082!`)
   );
