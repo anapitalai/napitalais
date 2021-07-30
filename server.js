@@ -265,9 +265,22 @@ app.use(adminBro.options.rootPath, router);
 //
 // Running the server
 const run = async () => {
+    // await mongoose.connect(
+    //   "mongodb://" + process.env.DB_HOST_LOCAL + "/" + process.env.DB_LOCAL,
+    //   {
+    //     useNewUrlParser: true,
+    //   }
+    // );
 
     await mongoose.connect(
-      "mongodb://" + process.env.DB_HOST_LOCAL + "/" + process.env.DB_LOCAL,
+      "mongodb://" +
+        process.env.DB_USER +
+        ":" +
+        process.env.DB_PASS +
+        "@" +
+        process.env.DB_HOST +
+        "/" +
+        process.env.DB_LOCAL,
       {
         useNewUrlParser: true,
       }
