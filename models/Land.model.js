@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const  User = require('./User.model')
 
-const CategorySchema = mongoose.Schema({
-   category:{type:String,required:true,unique:true},
+const LandSchema = mongoose.Schema({
+   landName:{type:String,required:true,unique:true},
    description:String,
   ownerId: {
     type: mongoose.Types.ObjectId,
@@ -12,7 +12,7 @@ const CategorySchema = mongoose.Schema({
     updatedAt:Date
 });
 
-CategorySchema.pre('save', function(next) {
+LandSchema.pre('save', function(next) {
     // get the current date
     var currentDate = new Date();
     // change the updated_at field to current date
@@ -26,4 +26,4 @@ CategorySchema.pre('save', function(next) {
     
 
 
-module.exports = mongoose.model('Land',CategorySchema);
+module.exports = mongoose.model('Land',LandSchema);

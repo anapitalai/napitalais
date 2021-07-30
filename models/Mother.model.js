@@ -11,6 +11,10 @@ const MotherSchema = mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: 'Membership_Id',
       },
+      ownerId: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User',
+      },
     createdAt:Date,
     updatedAt:Date
 });

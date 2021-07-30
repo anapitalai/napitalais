@@ -5,14 +5,14 @@ const AdminBro = require("admin-bro");
 const AdminBroExpressjs = require("@admin-bro/express");
 const bcrypt = require("bcryptjs");
 const User = require("./models/User.model");
-const GE = require("./models/Mother.model");
+const Mother = require("./models/Mother.model");
 const Immediate_family = require("./models/Immediate_family.model");
 const Spouse = require("./models/Spouse.model");
 const Membership_Id = require("./models/Membership_Id.model");
 
 const Land = require("./models/Land.model");
 
-const Registry = require("./models/Child.model");
+const Child = require("./models/Child.model");
 
 const adminNavigation = {
   name: "Admin",
@@ -22,7 +22,7 @@ const restrictedNavigation = {
   name: "Restricted",
   icon: "Accessibility",
 };
-
+//
 // We have to tell AdminBro that we will manage mongoose resources with it
 AdminBro.registerAdapter(require("@admin-bro/mongoose"));
 
@@ -150,7 +150,7 @@ const adminBro = new AdminBro({
   
     //GE Registry
     {
-      resource: Registry,
+      resource: Child,
 
       options: {
         navigation: adminNavigation,
@@ -173,7 +173,7 @@ const adminBro = new AdminBro({
 
     //GE
     {
-      resource: GE,
+      resource: Mother,
 
       options: {
         navigation: adminNavigation,
@@ -254,7 +254,7 @@ const adminBro = new AdminBro({
           },
         },
         actions: {
-          new: {
+          new: {isAccessible:canModifyUsers,
             before: async (request) => {
               if (request.payload.password) {
                 request.payload = {
@@ -267,7 +267,7 @@ const adminBro = new AdminBro({
                 };
               }
               return request;
-            },
+            }
           },
           edit: { isAccessible: canModifyUsers },
           delete: { isAccessible: canModifyUsers },

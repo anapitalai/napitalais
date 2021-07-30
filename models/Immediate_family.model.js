@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const Spouse_Id = require('./Spouse.model')
+const Spouse = require('./Spouse.model')
 const Membership_id = require('./Membership_Id.model')
-const Land_Id = require('./Land.model')
+const Land = require('./Land.model')
 const  User = require('./User.model')
-const  Mother_Id = require('./Mother.model')
+const  Mother = require('./Mother.model')
 
 const Immediate_familySchema = mongoose.Schema({
   membership_id: {
@@ -12,15 +12,15 @@ const Immediate_familySchema = mongoose.Schema({
       },
   spouse: {
     type: mongoose.Types.ObjectId,
-    ref: 'Spouse_Id',
+    ref: 'Spouse',
   },
   land: {
     type: mongoose.Types.ObjectId,
-    ref: 'Land_Id',
+    ref: 'Land',
   },
   mother: {
     type: mongoose.Types.ObjectId,
-    ref: 'Mother_Id',
+    ref: 'Mother',
   },
   ownerId: {
     type: mongoose.Types.ObjectId,

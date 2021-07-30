@@ -8,6 +8,10 @@ const ChildSchema = mongoose.Schema({
   name: { type: String,required: true },
   age: { type: Number,required: true },
   number_children: { type: String,required: true },
+  ownerId: {
+    type: mongoose.Types.ObjectId,
+    ref: 'User',
+  },
   membership_id: {
     type: mongoose.Types.ObjectId,
     ref: 'Membership_Id',
