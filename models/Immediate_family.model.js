@@ -26,11 +26,12 @@ const Immediate_familySchema = mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: "User",
   },
-
-  name: { type: String,required: true },
+  first_name: { type: String, required: true, unique: true },
+  middle_name: { type: String, required: true, unique: false },
+  last_name: { type: String, required: true, unique: false },
   current_location: { type: String,required: true },
   
-  age: { type: String, enum: ["30", "70",'45','75','80','55'], required: true },
+  age: { type: Number, required: false },
   createdAt: Date,
   updatedAt: Date ,
 
