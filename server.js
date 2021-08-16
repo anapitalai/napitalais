@@ -272,15 +272,31 @@ const run = async () => {
     //   }
     // );
 
+    //mongodb+srv://<username>:<password>@nictc.ok4ic.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+
+    // await mongoose.connect(
+    //   "mongodb+srv://" +
+    //     process.env.DB_USER +
+    //     ":" +
+    //     process.env.DB_PASS +
+    //     "@" +
+    //     process.env.DB_HOST +
+    //     "/" +
+    //     process.env.DB_LOCAL+"?retryWrites=true&w=majority",
+    //   {
+    //     useNewUrlParser: true,
+    //   }
+    // );
+
     await mongoose.connect(
-      "mongodb://" +
+      "mongodb+srv://" +
         process.env.DB_USER +
         ":" +
         process.env.DB_PASS +
         "@" +
         process.env.DB_HOST +
         "/" +
-        process.env.DB_LOCAL,
+        process.env.DB_LOCAL+"?retryWrites=true&w=majority",
       {
         useNewUrlParser: true,
       }
