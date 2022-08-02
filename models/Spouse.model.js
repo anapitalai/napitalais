@@ -19,6 +19,8 @@ const SpouseSchema = mongoose.Schema({
   updatedAt: Date
 });
 
+
+
 SpouseSchema.pre('save', function (next) {
   // get the current date
   var currentDate = new Date();

@@ -265,12 +265,12 @@ app.use(adminBro.options.rootPath, router);
 //
 // Running the server
 const run = async () => {
-    // await mongoose.connect(
-    //   "mongodb://" + process.env.DB_HOST_LOCAL + "/" + process.env.DB_LOCAL,
-    //   {
-    //     useNewUrlParser: true,
-    //   }
-    // );
+    await mongoose.connect(
+      "mongodb://" + process.env.DB_HOST_LOCAL + "/" + process.env.DB_LOCAL,
+      {
+        useNewUrlParser: true,
+      }
+    );
 
     //mongodb+srv://<username>:<password>@nictc.ok4ic.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
@@ -288,19 +288,19 @@ const run = async () => {
     //   }
     // );
 
-    await mongoose.connect(
-      "mongodb+srv://" +
-        process.env.DB_USER +
-        ":" +
-        process.env.DB_PASS +
-        "@" +
-        process.env.DB_HOST +
-        "/" +
-        process.env.DB_LOCAL+"?retryWrites=true&w=majority",
-      {
-        useNewUrlParser: true,
-      }
-    );
+    // await mongoose.connect(
+    //   "mongodb+srv://" +
+    //     process.env.DB_USER +
+    //     ":" +
+    //     process.env.DB_PASS +
+    //     "@" +
+    //     process.env.DB_HOST +
+    //     "/" +
+    //     process.env.DB_LOCAL+"?retryWrites=true&w=majority",
+    //   {
+    //     useNewUrlParser: true,
+    //   }
+    // );
 
   await app.listen(8082, () =>
     console.log(`Example app listening on port 8082!`)
